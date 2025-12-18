@@ -14,8 +14,39 @@ Safety levels are classified as **Low**, **Medium**, or **High**, relative to cr
 - Random Forest
 - PCA
 
+## 📌 Machine Learning Workflow
+
+This project implements a complete, production-style machine learning pipeline:
+
+Raw Data
+↓
+Data Preprocessing
+↓
+Feature Engineering (Per-Capita Crime Rates)
+↓
+Safety Label Construction (Low / Medium / High)
+↓
+Model Training (Random Forest)
+↓
+Dimensionality Reduction (PCA)
+↓
+Model Persistence (Saved Model + Transformer)
+↓
+Inference on New, Unseen Data
+
+
 ## How to Run
 
 ### 1. Install dependencies
-```bash
+``bash
 pip install -r requirements.txt
+
+
+###2. Predict safety for new data
+``bash
+src/predictor.py
+
+##Notes
+
+- Safety labels are relative (quantile-based), not absolute crime thresholds.
+- Model and PCA transformer are pre-trained and stored for reuse.
