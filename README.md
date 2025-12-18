@@ -19,19 +19,19 @@ Safety levels are classified as **Low**, **Medium**, or **High**, relative to cr
 This project implements a complete, production-style machine learning pipeline:
 
 Raw Data
-↓
+ → 
 Data Preprocessing
-↓
+ → 
 Feature Engineering (Per-Capita Crime Rates)
-↓
+ → 
 Safety Label Construction (Low / Medium / High)
-↓
+ → 
 Model Training (Random Forest)
-↓
+ → 
 Dimensionality Reduction (PCA)
-↓
+ → 
 Model Persistence (Saved Model + Transformer)
-↓
+ → 
 Inference on New, Unseen Data
 
 
