@@ -1,6 +1,7 @@
 import pandas as pd
 from pathlib import Path
 from sklearn.ensemble import RandomForestClassifier
+from modeling import get_feature_columns
 
 PROCESSED_DIR = Path(__file__).resolve().parents[1] / "data" / "processed"
 
@@ -10,14 +11,7 @@ def compute_feature_importance():
 
     df = pd.read_csv(data_path)
 
-    feature_cols = [
-        "violent_crime_rate",
-        "property_crime_rate",
-        "homicide_rate",
-        "population",
-        "latitude",
-        "longitude"
-    ]
+    feature_cols = get_feature_columns(df)
 
     X = df[feature_cols]
     y = df["safety_label"]

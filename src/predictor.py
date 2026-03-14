@@ -4,15 +4,13 @@ from pathlib import Path
 
 # Paths
 MODEL_DIR = Path(__file__).resolve().parents[1] / "models"
-MODEL_PATH = MODEL_DIR / "rf_safety_model.pkl"
-PCA_PATH = MODEL_DIR / "pca_transformer.pkl"
-SCALER_PATH = MODEL_DIR / "scaler.pkl"
+MODEL_PATH = MODEL_DIR / "safety_pipeline.pkl"
 
 
-# Load model + PCA + Scaler
-rf = joblib.load(MODEL_PATH)
-pca = joblib.load(PCA_PATH)
-scaler = joblib.load(SCALER_PATH)
+# Load model artifact
+artifact = joblib.load(MODEL_PATH)
+pipeline = artifact["pipeline"]
+feature_columns = artifact["feature_columns"]
 
 # Example input data
 example_data = {
@@ -26,12 +24,12 @@ example_data = {
 
 df_input = pd.DataFrame(example_data)
 
-# Scale features
-X_scaled = scaler.transform(df_input)
+for column in feature_columns:
+    if column not in df_input.columns:
+        df_input[column] = 0.0
 
-# Apply PCA
-X_pca = pca.transform(X_scaled)
+df_input = df_input[feature_columns]
 
 # Predict
-pred = rf.predict(X_pca)
+pred = pipeline.predict(df_input)
 print(f"Predicted Safety Label: {pred[0]}")
